@@ -21,7 +21,7 @@ int main() {                            // este programa deve ser rodado com 'su
    pwmSetMode(PWM_MODE_MS);             // usando frequencia fixa
    pwmSetRange(2048);                    // passos do duty cycle (max=4096)
    pwmSetClock(36);                     // fornece uma frequencia de 10kHz (max=4096)
-   printf("Alarme média prioridade\n");
+   printf("Alarme alta prioridade\n");
    
    for(ciclos = 0; ciclos < 3; ciclos++){  
       
@@ -30,6 +30,16 @@ int main() {                            // este programa deve ser rodado com 'su
          pwmWrite(pino_PWM0, 0);
          usleep(500000);
       
+   }
+   
+   usleep(2000000S);
+   
+    for(ciclos = 0; ciclos < 2; ciclos++){  
+      
+         pwmWrite(pino_PWM0, 1024);
+         usleep(500000);
+         pwmWrite(pino_PWM0, 0);
+         usleep(500000); 
    }
    return 0;                            // a saida PWM permanece ligada apos o termino do programa
 }
