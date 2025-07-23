@@ -7,7 +7,7 @@
 #include<sys/ioctl.h>
 #include<linux/i2c.h>
 #include<linux/i2c-dev.h>
-#define BUFFER_SIZE 5      // 5 posicoes do buffer do Arduino: de 0x00 a 0x04
+#define BUFFER_SIZE 7      // 7 posicoes do buffer do Arduino: de 0x00 a 0x06
 
 int main(int argc, char **argv){
    int file, i, alert=0xFF;
@@ -55,13 +55,15 @@ int main(int argc, char **argv){
      }
    }
    int valor, limite, valorLED;
+   float tensaoPot;
    valor =  rec[0] | ( rec[1] << 8 );   // converte 2 bytes de 8bits cada para 1 inteiro de 16bits
    limite =  rec[2] | ( rec[3] << 8 );
    valorLED = rec[4];
+   tensaoPot = rec[5] + ((float)rec[6]/100.0);
    printf("O valor lido foi %d.\n", valor);
    printf("O alarme esta ajustado em %d.\n", limite);
    printf("O LED esta ajustado em %d.\n", valorLED);
-
+   printf("A tensao na entrada eh %f.\n", tensaoPot);
    close(file);
    return 0;
 }
